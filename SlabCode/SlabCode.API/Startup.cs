@@ -1,11 +1,15 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SlabCode.Core.ProjectServices.Contract;
+using SlabCode.Core.ProjectServices.Implementation;
+using SlabCode.DataAccess;
 using System.Text;
 
 namespace SlabCode.API
@@ -20,7 +24,7 @@ namespace SlabCode.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var key = Encoding.ASCII.GetBytes("grvb$#&5rtdgDFHgjhhghfg");
+            var key = Encoding.ASCII.GetBytes(Configuration.GetValue<string>("SecretKey"));
 
             services.AddAuthentication(x =>
             {
@@ -67,12 +71,17 @@ namespace SlabCode.API
 
         private void AddBusinessServices(IServiceCollection services)
         {
-            //services.AddScoped<ISendService, MasivAPISmsSendService>();
+            services.AddScoped<IProjectManagement, SlabCodeProjectManagement>();
         }
 
         private void AddRepositories(IServiceCollection services)
         {
             //services.Configure<MongoConfiguration>(Configuration.GetSection("Mongo"));
+            services.AddEntityFrameworkNpgsql()
+            .AddDbContext<SlabCodeTestContext>(options =>
+            {
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
+            });
         }
 
         private void AddDomainServices(IServiceCollection services)

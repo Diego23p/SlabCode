@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SlabCode.Core.ProjectServices.Contract;
+using SlabCode.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +13,19 @@ namespace SlabCode.API.Controller
     [Route("Projects/")]
     public class ProjectsController
     {
-        [HttpGet]
-        [Authorize(Roles = "admin")]
-        public string Hello()
+        private readonly IProjectManagement ProjectManagement;
+
+        public ProjectsController(IProjectManagement projectManagement)
         {
-            return $"Hello!";
+            ProjectManagement = projectManagement;
+        }
+
+        [HttpGet]
+        [Authorize]//(Roles = "admin")]
+        public string Hello([FromBody] User user)
+        {
+            ProjectManagement.getUsers(user);
+            return "Ok";
         }
     }
 }
