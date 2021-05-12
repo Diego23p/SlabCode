@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace SlabCode.API.Controller
 {
-    [Authorize]
     [Route("Projects/")]
     public class ProjectsController
     {
@@ -21,11 +20,12 @@ namespace SlabCode.API.Controller
         }
 
         [HttpGet]
-        [Authorize]//(Roles = "admin")]
-        public string Hello([FromBody] User user)
+        [Route("createOperatorUser/")]
+        [Authorize(Roles = "Administrador")]
+        public string createOperatorUser([FromBody] User user)
         {
-            ProjectManagement.getUsers(user);
-            return "Ok";
+            ProjectManagement.createOperatorUser(user);
+            return "Operator user created";
         }
     }
 }

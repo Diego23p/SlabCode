@@ -23,22 +23,21 @@ namespace SlabCode.API.Controller
         [HttpPost("/token")]
         public IActionResult Get(string username, string password)
         {
-            if (ProjectManagement.loguin(username,password))
-                return Ok(GenerateToken(username));
+            Tuple<bool, string> response = ProjectManagement.loguin(username, password);
+            if (response.Item1)
+                return Ok(GenerateToken(username, response.Item2));
             else
                 return Unauthorized();
         }
 
-        private string GenerateToken(string username)
+        private string GenerateToken(string username, string role)
         {
             var sk = _configuration.GetValue<string>("SecretKey");
             var key = Encoding.ASCII.GetBytes(sk);
 
             var claims = new ClaimsIdentity();
             claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, username));
-
-            //string role = ProjectManagement.getRole(username);
-            //claims.AddClaim(new Claim(ClaimTypes.Role, role));
+            claims.AddClaim(new Claim(ClaimTypes.Role, role));
 
             var tokenD = new SecurityTokenDescriptor
             {

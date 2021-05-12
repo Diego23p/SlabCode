@@ -8,7 +8,7 @@ namespace SlabCode.Core.ProjectServices.Contract
 {
     public interface IProjectManagement
     {
-        public bool loguin(string username, string password);
-        public void getUsers(User user);
+        public Tuple<bool, string> loguin(string username, string password);
+        public void createOperatorUser(User user);
     }
 }

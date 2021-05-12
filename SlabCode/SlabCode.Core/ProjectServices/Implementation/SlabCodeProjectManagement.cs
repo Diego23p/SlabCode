@@ -1,5 +1,8 @@
-﻿using SlabCode.Core.ProjectServices.Contract;
+﻿using Microsoft.EntityFrameworkCore;
+using SlabCode.Core.ProjectServices.Contract;
 using SlabCode.DataAccess;
+using System;
+using System.Linq;
 
 namespace SlabCode.Core.ProjectServices.Implementation
 {
@@ -12,12 +15,33 @@ namespace SlabCode.Core.ProjectServices.Implementation
             this.DbContext = DbContext;
         }
 
-        public bool loguin(string username, string password)
+        public Tuple<bool, string> loguin(string username, string password)
         {
-            return true;
+            User user = GetUserByIdAsync(username);
+
+            if (user==null || !user.Username.Equals(username) || !user.Password.Equals(password))
+            {
+                return new Tuple<bool, string>(false, string.Empty);                
+            }
+            return new Tuple<bool, string>(true, user.Role);
+
         }
 
-        public void getUsers(User user)
+        public User GetUserByIdAsync(string username)
+        {
+            return DbContext.Users.Select(
+                    s => new User
+                    {
+                        Username = s.Username,
+                        Password = s.Password,
+                        Role = s.Role,
+                        Enable = s.Enable,
+                        Email = s.Email
+                    })
+                .FirstOrDefaultAsync(s => s.Username == username).Result;
+        }
+
+        public void createOperatorUser(User user)
         {
             InsertUserAsync(user).Wait();
         }
@@ -28,7 +52,7 @@ namespace SlabCode.Core.ProjectServices.Implementation
             {
                 Username = User.Username,
                 Password = User.Password,
-                Role = User.Role,
+                Role = "Operador",
                 Enable = User.Enable,
                 Email = User.Email
             };
