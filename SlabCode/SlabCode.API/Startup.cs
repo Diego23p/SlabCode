@@ -10,6 +10,8 @@ using Microsoft.OpenApi.Models;
 using SlabCode.Core.ProjectServices.Contract;
 using SlabCode.Core.ProjectServices.Implementation;
 using SlabCode.DataAccess;
+using SlabCode.DataAccess.DBOperations.Contract;
+using SlabCode.DataAccess.DBOperations.Implementation;
 using System.Text;
 
 namespace SlabCode.API
@@ -77,6 +79,9 @@ namespace SlabCode.API
         private void AddRepositories(IServiceCollection services)
         {
             //services.Configure<MongoConfiguration>(Configuration.GetSection("Mongo"));
+            services.AddScoped<UserDbOperations, UserDbOperations>();
+            services.AddScoped<ProjectDbOperations, ProjectDbOperations>();
+
             services.AddEntityFrameworkNpgsql()
             .AddDbContext<SlabCodeTestContext>(options =>
             {

@@ -1,64 +1,73 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
 using SlabCode.Core.ProjectServices.Contract;
 using SlabCode.DataAccess;
+using SlabCode.DataAccess.DBOperations.Implementation;
 using System;
-using System.Linq;
+using System.Security.Claims;
 
 namespace SlabCode.Core.ProjectServices.Implementation
 {
     public class SlabCodeProjectManagement : IProjectManagement
     {
-        private readonly SlabCodeTestContext DbContext;
+        private readonly UserDbOperations userDbOperations;
+        private readonly ProjectDbOperations projectDbOperations;        
 
-        public SlabCodeProjectManagement(SlabCodeTestContext DbContext)
+        public SlabCodeProjectManagement(UserDbOperations userDbOperations, ProjectDbOperations projectDbOperations)
         {
-            this.DbContext = DbContext;
+            this.userDbOperations = userDbOperations;
+            this.projectDbOperations = projectDbOperations;
         }
 
         public Tuple<bool, string> loguin(string username, string password)
         {
-            User user = GetUserByIdAsync(username);
+            User user = userDbOperations.GetById(username);
 
             if (user==null || !user.Username.Equals(username) || !user.Password.Equals(password))
             {
                 return new Tuple<bool, string>(false, string.Empty);                
             }
             return new Tuple<bool, string>(true, user.Role);
-
-        }
-
-        public User GetUserByIdAsync(string username)
-        {
-            return DbContext.Users.Select(
-                    s => new User
-                    {
-                        Username = s.Username,
-                        Password = s.Password,
-                        Role = s.Role,
-                        Enable = s.Enable,
-                        Email = s.Email
-                    })
-                .FirstOrDefaultAsync(s => s.Username == username).Result;
-        }
+        }        
 
         public void createOperatorUser(User user)
         {
-            InsertUserAsync(user).Wait();
+            userDbOperations.Insert(user);
+        }        
+
+        public string changePassword(string oldPassword, string newPassword, HttpContext httpContext)
+        {
+            try
+            {
+                var username = httpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                User user = userDbOperations.GetById(username);
+                if (oldPassword.Equals(user.Password))
+                {
+                    user.Password = newPassword;
+                    userDbOperations.Update(user);
+                    return "Password changed";
+                }
+                return "Invalid actual password";
+            }
+            catch(Exception ex)
+            {
+                return ex.ToString();
+            }
         }
 
-        public async System.Threading.Tasks.Task InsertUserAsync(User User)
+        public void createProyect(Project project)
         {
-            var entity = new User()
-            {
-                Username = User.Username,
-                Password = User.Password,
-                Role = "Operador",
-                Enable = User.Enable,
-                Email = User.Email
-            };
+            projectDbOperations.create(project);
+        }
 
-            DbContext.Users.Add(entity);
-            await DbContext.SaveChangesAsync();
+        public void updateProyect(Project project)
+        {
+            Project projectDb = projectDbOperations.GetById(project.Name);
+
+            projectDb.Name = project.Name;
+            projectDb.Description = project.Description;
+            projectDb.Initdate = project.Initdate;
+
+            projectDbOperations.Update(projectDb);
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using SlabCode.DataAccess;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace SlabCode.Core.ProjectServices.Contract
 {
@@ -10,5 +8,8 @@ namespace SlabCode.Core.ProjectServices.Contract
     {
         public Tuple<bool, string> loguin(string username, string password);
         public void createOperatorUser(User user);
+        public string changePassword(string oldPassword, string newPassword, HttpContext httpContext);
+        public void createProyect(Project project);
+        public void updateProyect(Project project);
     }
 }
