@@ -1,12 +1,8 @@
-﻿using SlabCode.DataAccess.DBOperations.Contract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace SlabCode.DataAccess.DBOperations.Implementation
 {
-    public class ProjectDbOperations : IDbOperations
+    public class ProjectDbOperations
     {
         private readonly SlabCodeTestContext DbContext;
 
@@ -30,7 +26,7 @@ namespace SlabCode.DataAccess.DBOperations.Implementation
             DbContext.SaveChanges();
         }
 
-        public Project GetById(string id)
+        public Project getById(string id)
         {
             return DbContext.Projects.Select(
                     s => new Project
@@ -44,7 +40,7 @@ namespace SlabCode.DataAccess.DBOperations.Implementation
                 .FirstOrDefault(s => s.Name == id);
         }
 
-        public void Update(Project project)
+        public void update(Project project)
         {
             var entity = DbContext.Projects.FirstOrDefault(s => s.Name == project.Name);
 
@@ -56,5 +52,16 @@ namespace SlabCode.DataAccess.DBOperations.Implementation
 
             DbContext.SaveChanges();
         }
+
+        public void delete(string projectId)
+        {
+            var entity = new Project()
+            {
+                Name = projectId
+            };
+            DbContext.Projects.Attach(entity);
+            DbContext.Projects.Remove(entity);
+            DbContext.SaveChanges();
+        } 
     }
 }

@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SlabCode.DataAccess.DBOperations.Contract;
-using System.Linq;
+﻿using System.Linq;
 
 namespace SlabCode.DataAccess.DBOperations.Implementation
 {
-    public class UserDbOperations : IDbOperations
+    public class UserDbOperations
     {
         private readonly SlabCodeTestContext DbContext = new SlabCodeTestContext();
 
@@ -13,21 +11,7 @@ namespace SlabCode.DataAccess.DBOperations.Implementation
             this.DbContext = DbContext;
         }
 
-        public User GetById(string id)
-        {
-            return DbContext.Users.Select(
-                    s => new User
-                    {
-                        Username = s.Username,
-                        Password = s.Password,
-                        Role = s.Role,
-                        Enable = s.Enable,
-                        Email = s.Email
-                    })
-                .FirstOrDefault(s => s.Username == id);
-        }
-
-        public void Insert(User User)
+        public void create(User User)
         {
             var entity = new User()
             {
@@ -42,7 +26,21 @@ namespace SlabCode.DataAccess.DBOperations.Implementation
             DbContext.SaveChanges();
         }
 
-        public void Update(User user)
+        public User getById(string id)
+        {
+            return DbContext.Users.Select(
+                    s => new User
+                    {
+                        Username = s.Username,
+                        Password = s.Password,
+                        Role = s.Role,
+                        Enable = s.Enable,
+                        Email = s.Email
+                    })
+                .FirstOrDefault(s => s.Username == id);
+        }        
+
+        public void update(User user)
         {
             var entity = DbContext.Users.FirstOrDefault(s => s.Username == user.Username);
 

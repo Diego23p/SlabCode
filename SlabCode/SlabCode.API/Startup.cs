@@ -7,10 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using SlabCode.Core.ProjectServices.Contract;
 using SlabCode.Core.ProjectServices.Implementation;
 using SlabCode.DataAccess;
-using SlabCode.DataAccess.DBOperations.Contract;
 using SlabCode.DataAccess.DBOperations.Implementation;
 using System.Text;
 
@@ -52,8 +50,6 @@ namespace SlabCode.API
             AddBusinessServices(services);
             AddRepositories(services);
             AddDomainServices(services);
-
-            AddObjectConfigurations(services);
         }
 
         public void AddSwagger(IServiceCollection services)
@@ -73,14 +69,16 @@ namespace SlabCode.API
 
         private void AddBusinessServices(IServiceCollection services)
         {
-            services.AddScoped<IProjectManagement, SlabCodeProjectManagement>();
+            services.AddScoped<UserServices, UserServices>();
+            services.AddScoped<ProjectServices, ProjectServices>();
+            services.AddScoped<TaskServices, TaskServices>();
         }
 
         private void AddRepositories(IServiceCollection services)
         {
-            //services.Configure<MongoConfiguration>(Configuration.GetSection("Mongo"));
             services.AddScoped<UserDbOperations, UserDbOperations>();
             services.AddScoped<ProjectDbOperations, ProjectDbOperations>();
+            services.AddScoped<TaskDbOperations, TaskDbOperations>();
 
             services.AddEntityFrameworkNpgsql()
             .AddDbContext<SlabCodeTestContext>(options =>
@@ -90,11 +88,6 @@ namespace SlabCode.API
         }
 
         private void AddDomainServices(IServiceCollection services)
-        {
-            
-        }
-
-        private void AddObjectConfigurations(IServiceCollection services)
         {
             
         }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using SlabCode.Core.ProjectServices.Contract;
+using SlabCode.Core.ProjectServices.Implementation;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -12,18 +12,18 @@ namespace SlabCode.API.Controller
     public class TokenController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly IProjectManagement ProjectManagement;
+        private readonly UserServices UserServices;
 
-        public TokenController(IConfiguration configuration, IProjectManagement projectManagement)
+        public TokenController(IConfiguration configuration, UserServices userServices)
         {
             _configuration = configuration;
-            ProjectManagement = projectManagement;
+            UserServices = userServices;
         }
 
         [HttpPost("/token")]
         public IActionResult Get(string username, string password)
         {
-            Tuple<bool, string> response = ProjectManagement.loguin(username, password);
+            Tuple<bool, string> response = UserServices.login(username, password);
             if (response.Item1)
                 return Ok(GenerateToken(username, response.Item2));
             else
