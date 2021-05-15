@@ -1,0 +1,492 @@
+{
+	"info": {
+		"_postman_id": "5055c944-194b-4f98-b045-d3599675ebf1",
+		"name": "SlabCode",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "create Operator User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJBZG1pbiIsInJvbGUiOiJBZG1pbmlzdHJhZG9yIiwibmJmIjoxNjIxMDM2NzQ5LCJleHAiOjE2MjEwNTExNDksImlhdCI6MTYyMTAzNjc0OX0.xAqelcEUVdbdSXeqaNruxdDx0qM0N1Ktvc3HvBlluUs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\":\"OP\",\r\n    \"Password\":\"123\",\r\n    \"Enable\":true,\r\n    \"Email\":\"diego23p@hotmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44354/User/createOperatorUser",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44354",
+							"path": [
+								"User",
+								"createOperatorUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chage password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJPUCIsInJvbGUiOiJPcGVyYWRvciIsIm5iZiI6MTYyMTAzNjgyOCwiZXhwIjoxNjIxMDUxMjI4LCJpYXQiOjE2MjEwMzY4Mjh9.J3ih2sqKh51_Ry7dYo45LRszowFm03J93EShbNShzjQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44354/User/changePassword?oldPassword=123&newPassword=12345",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44354",
+							"path": [
+								"User",
+								"changePassword"
+							],
+							"query": [
+								{
+									"key": "oldPassword",
+									"value": "123"
+								},
+								{
+									"key": "newPassword",
+									"value": "12345"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "enable",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJBZG1pbiIsInJvbGUiOiJBZG1pbmlzdHJhZG9yIiwibmJmIjoxNjIxMDM2NzQ5LCJleHAiOjE2MjEwNTExNDksImlhdCI6MTYyMTAzNjc0OX0.xAqelcEUVdbdSXeqaNruxdDx0qM0N1Ktvc3HvBlluUs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44354/User/enable?username=OP&enable=true",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44354",
+							"path": [
+								"User",
+								"enable"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "OP"
+								},
+								{
+									"key": "enable",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Proyect",
+			"item": [
+				{
+					"name": "create Proyect",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJPUCIsInJvbGUiOiJPcGVyYWRvciIsIm5iZiI6MTYyMTAzNjgyOCwiZXhwIjoxNjIxMDUxMjI4LCJpYXQiOjE2MjEwMzY4Mjh9.J3ih2sqKh51_Ry7dYo45LRszowFm03J93EShbNShzjQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\":\"Viajes\",\r\n    \"Description\":\"description viajes\",\r\n    \"Initdate\":\"2021-05-10T00:00:00\",\r\n    \"Finishdate\":\"2021-05-30T00:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44354/Project/create",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44354",
+							"path": [
+								"Project",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Proyect",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJPUCIsInJvbGUiOiJPcGVyYWRvciIsIm5iZiI6MTYyMTAzNjgyOCwiZXhwIjoxNjIxMDUxMjI4LCJpYXQiOjE2MjEwMzY4Mjh9.J3ih2sqKh51_Ry7dYo45LRszowFm03J93EShbNShzjQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\":\"Viajes\",\r\n    \"Description\":\"description Viajes actualizada\",\r\n    \"Finishdate\":\"2021-05-22T00:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44354/Project/update",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44354",
+							"path": [
+								"Project",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "complete Proyect",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJPUCIsInJvbGUiOiJPcGVyYWRvciIsIm5iZiI6MTYyMTAzNjgyOCwiZXhwIjoxNjIxMDUxMjI4LCJpYXQiOjE2MjEwMzY4Mjh9.J3ih2sqKh51_Ry7dYo45LRszowFm03J93EShbNShzjQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44354/Project/complete?id=Viajes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44354",
+							"path": [
+								"Project",
+								"complete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "Viajes"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Proyect",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJPUCIsInJvbGUiOiJPcGVyYWRvciIsIm5iZiI6MTYyMTAzNjgyOCwiZXhwIjoxNjIxMDUxMjI4LCJpYXQiOjE2MjEwMzY4Mjh9.J3ih2sqKh51_Ry7dYo45LRszowFm03J93EShbNShzjQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44354/Project/delete?id=Viajes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44354",
+							"path": [
+								"Project",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "Viajes"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "create Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJPUCIsInJvbGUiOiJPcGVyYWRvciIsIm5iZiI6MTYyMTAzNjgyOCwiZXhwIjoxNjIxMDUxMjI4LCJpYXQiOjE2MjEwMzY4Mjh9.J3ih2sqKh51_Ry7dYo45LRszowFm03J93EShbNShzjQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\":\"Viaje EU\",\r\n    \"Description\":\"Viaje EU description\",\r\n    \"Executiondate\":\"2021-06-20T00:00:00\",\r\n    \"Project\":\"Viajes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44354/Task/create",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44354",
+							"path": [
+								"Task",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJPUCIsInJvbGUiOiJPcGVyYWRvciIsIm5iZiI6MTYyMTAzNjgyOCwiZXhwIjoxNjIxMDUxMjI4LCJpYXQiOjE2MjEwMzY4Mjh9.J3ih2sqKh51_Ry7dYo45LRszowFm03J93EShbNShzjQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\":\"Task 2 Project 1\",\r\n    \"Description\":\"Task 2 Project 1 description modify2\",\r\n    \"Executiondate\":\"1990-08-25T15:54:49\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44354/Task/update",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44354",
+							"path": [
+								"Task",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "complete Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJPUCIsInJvbGUiOiJPcGVyYWRvciIsIm5iZiI6MTYyMTAzNjgyOCwiZXhwIjoxNjIxMDUxMjI4LCJpYXQiOjE2MjEwMzY4Mjh9.J3ih2sqKh51_Ry7dYo45LRszowFm03J93EShbNShzjQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44354/Task/complete?id=Viaje EU",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44354",
+							"path": [
+								"Task",
+								"complete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "Viaje EU"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJPUCIsInJvbGUiOiJPcGVyYWRvciIsIm5iZiI6MTYyMTAzNjgyOCwiZXhwIjoxNjIxMDUxMjI4LCJpYXQiOjE2MjEwMzY4Mjh9.J3ih2sqKh51_Ry7dYo45LRszowFm03J93EShbNShzjQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44354/Task/delete?id=Viaje EU",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44354",
+							"path": [
+								"Task",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "Viaje EU"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "GetToken",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJEaWVnbyIsIm5iZiI6MTYyMDc4NTY3OCwiZXhwIjoxNjIwODAwMDc4LCJpYXQiOjE2MjA3ODU2Nzh9.TH1jQfnq8X18t8oBLe3uLBOC516rPSRImP9S32ZHg2o",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\":\"Operador1\",\r\n    \"Password\":\"123\",\r\n    \"Enable\":true,\r\n    \"Email\":\"diego23p@hotmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44354/token?username=OP&password=123",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44354",
+							"path": [
+								"token"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "OP"
+								},
+								{
+									"key": "password",
+									"value": "123"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
