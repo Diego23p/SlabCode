@@ -18,8 +18,12 @@ namespace SlabCode.Core.ProjectServices.Implementation
 
         public string create(Project project)
         {
-            projectDbOperations.create(project);
-            return $"Project \"{project.Name}\" created";
+            if (project.Initdate < project.Finishdate)
+            {
+                projectDbOperations.create(project);
+                return $"Project \"{project.Name}\" created";
+            }
+            return $"Project \"{project.Name}\" not created, finishDate must be later to initDate";
         }
 
         public string update(Project project)
