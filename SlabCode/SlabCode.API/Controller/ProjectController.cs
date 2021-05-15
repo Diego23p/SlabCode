@@ -41,6 +41,7 @@ namespace SlabCode.API.Controller
 
         [HttpDelete]
         [Route("delete/")]
+        [Authorize(Roles = "Administrador")]
         public string delete(string id)
         {
             try
